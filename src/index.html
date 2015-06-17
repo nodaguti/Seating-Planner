@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <title>Seating Planner</title>
+
+    <link rel="stylesheet" href="css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/jquery.steps.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Seating Planner</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Credit
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" area-labelledby="dropdownMenu" role="menu">
+                            <li><a href="#">
+                                Seating Planner 0.1 (Build 201401161530)<br />
+                                Copyright &copy; 2013-2014 Ads Group #5. All rights reserved.
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!--[if IE]>
+            <div class="panel panel-danger" style="margin-top: 1em">
+                <div class="panel-heading">
+                    <h3 class="panel-title">サポート外のブラウザ</h3>
+                </div>
+                <div class="panel-body">
+                    Internet Explorer 9以下はサポートしていません。IE 10以上をご利用いただくか, Firefox 等その他のブラウザをお使いください。
+                </div>
+            </div>
+        <![endif]-->
+
+        <h1>新規席次作成</h1>
+
+        <div id="createWizard">
+            <h1>データの入力</h1>
+            <section class="page-enter-data">
+                <div class="pull-right">
+                    <input type="button" class="btn btn-primary btn-import" value="読み込み" />
+                    <input type="button" class="btn btn-primary btn-export" value="保存" />
+                </div>
+
+                <h2>テーブル</h2>
+
+                <p>会場に配置するテーブルについて、上座のテーブルから順に入力してください。</p>
+
+                <table class="table-list table table-bordered table-striped table-condensed table-editable">
+                    <tbody>
+                        <tr>
+                            <th>最高座席数</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr class="table-template">
+                            <td class="table-list-max-seats">
+                                <input type="number" min="1" value="5" class="form-control" />
+                            </td>
+                            <td class="table-nav">
+                                <input type="button" class="btn btn-default table-btn-add" value="追加" />
+                                <input type="button" class="btn btn-danger table-btn-delete" value="削除" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>グループ</h2>
+
+                <p>出席するグループとそのメンバーについて入力してください。グループ・メンバーともに、上座から順に入力していくと後の操作が簡単になります。</p>
+                <p>なお、「開閉」ボタンをクリックすることでメンバー編集欄の開閉が可能です。</p>
+
+                <p class="pull-right">
+                    <button class="btn btn-success btn-sm btn-closeAll">すべて閉じる</button>
+                    <button class="btn btn-success btn-sm btn-expandAll">すべて開く</button>
+                </p>
+
+                <table class="table-group table table-bordered panel-group table-editable">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>カテゴリ</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-template panel">
+                        <tr class="panel-heading">
+                            <td class="table-group-name">
+                                <input type="text" value="新規グループ" class="form-control" />
+                            </td>
+                            <td class="table-list-category">
+                                <select value="0" class="form-control">
+                                    <option value="0">主賓</option>
+                                    <option value="1">上司</option>
+                                    <option value="2">恩師</option>
+                                    <option value="3">同僚</option>
+                                    <option value="4">友人</option>
+                                    <option value="5">親族</option>
+                                </select>
+                            </td>
+                            <td class="table-nav">
+                                <input type="button" class="btn btn-default table-btn-add" value="追加" />
+                                <input type="button" class="btn btn-danger table-btn-delete" value="削除" />
+                                <button href="#js-table-group-members-" class="btn btn-default" data-toggle="collapse">開閉</button>
+                            </td>
+                        </tr>
+                        <tr id="js-table-group-members-" class="collapse panel-collapse">
+                            <td colspan="4" class="panel-body">
+                                <table class="table-member table table-bordered table-striped table-condensed table-editable">
+                                    <tbody>
+                                        <tr>
+                                            <th>名前</th>
+                                            <th>年齢</th>
+                                            <th>役職・肩書き名</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tr class="table-template">
+                                            <td class="table-member-name">
+                                                <input type="text" class="form-control" />
+                                            </td>
+                                            <td class="table-member-year">
+                                                <input type="number" min="0" max="150" class="form-control" />
+                                            </td>
+                                            <td class="table-member-status">
+                                                <input type="text" class="form-control" />
+                                            </td>
+                                            <td class="table-nav">
+                                                <input type="button" class="btn btn-default table-btn-add" value="追加" />
+                                                <input type="button" class="btn btn-danger table-btn-delete" value="削除" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <h1>グループ序列の決定</h1>
+            <section class="page-sort-groups">
+                <p>
+                    各カテゴリ内におけるグループの序列を決定してください。
+                    各項目はドラッグ＆ドロップにより移動することができます。
+                </p>
+                <div class="page-sort-groups-content"></div>
+            </section>
+
+
+            <h1>肩書き序列の決定</h1>
+            <section class="page-sort-statuses">
+                <p>
+                    各グループにおける役職・肩書きの序列を決定してください。
+                    各項目はドラッグ＆ドロップにより移動することができます。
+                </p>
+               <div class="page-sort-statuses-content"></div>
+            </section>
+
+            <h1>メンバー序列の決定</h1>
+            <section class="page-sort-members">
+                <p>
+                    指定された役職・肩書きの序列に基づき、暫定的な各メンバーの序列を決定しました。
+                    手動により最終的な調整を行なってください。
+                    各項目はドラッグ＆ドロップにより移動することができます。
+                </p>
+                <div class="page-sort-members-content"></div>
+            </section>
+
+
+            <h1>結果</h1>
+            <section class="page-result">
+                <p>決定された席次は以下の通りです。</p>
+                <div class="page-result-content"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/lib/jquery-1.10.2.min.js"></script>
+    <script src="js/lib/jquery-ui.min.js"></script>
+    <script src="js/lib/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/jquery.steps.min.js"></script>
+    <script src="js/category.js"></script>
+    <script src="js/group.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/member.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        //Add "dataTransfer" to jQuery.event so that jQuery can handle File API
+        jQuery.event.props.push('dataTransfer');
+
+        //Start the app
+        init();
+    </script>
+</body>
+</html>

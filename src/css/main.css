@@ -1,0 +1,74 @@
+body{
+    padding-top: 50px;
+}
+
+input[type="number"]{
+    text-align: right;
+}
+
+
+/** *** table *** **/
+.table{
+    background-color: white;
+}
+
+.table td,
+.table th{
+    text-align: center;
+}
+
+.table-template{
+    display: none;
+}
+
+.table-nav{
+    width: 25%;
+}
+
+.sortable{
+    list-style-type: none;
+    margin: 0;
+    margin-left: 1.5em;
+    padding: 0;
+    width: 70%;
+}
+
+.sortable > li{
+    margin: 0 3px 3px 3px;
+    padding: 0.3em;
+    padding-left: 1em;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: move;
+}
+
+@media (min-width: 768px){
+    .table-list{
+        width: 50%;
+    }
+}
+
+.table-group > tbody{
+    border: 1px solid #ccc;
+}
+
+.table-group .panel-heading{
+    background-color: rgb(249, 249, 249);
+}
+
+.table-group > tbody > tr,
+.table-group > tbody > tr > td{
+    border: 0 none;
+}
+
+/** jquery-uiのsortableにおいて,
+itemsを指定した時にcursorがセットされないバグに対処する */
+table[class*="member-sortable"] tr[data-id]{
+    cursor: move;
+}
+
+
+/** *** dialog *** **/
+.import-dialog-file-input{
+    display: none !important;
+}
